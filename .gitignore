@@ -1,0 +1,8 @@
+# Pub
+.dart_tool/
+.packages
+pubspec.lock
+build/
+
+# Temp files
+coverage/
