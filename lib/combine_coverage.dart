@@ -7,19 +7,27 @@ import 'package:combine_coverage/coverage_file_locator.dart';
 void combineCoverage(String repoPath, String outputDirectory) async {
   Directory(outputDirectory).createSync(recursive: true);
 
-  final coverageFileLocator = CoverageFileLocator(repoPath);
+  var absoluteRepoPath =
+      Directory(repoPath).absolute.path.replaceFirst(RegExp(r'\/$'), '');
+
+  final coverageFileLocator = CoverageFileLocator(absoluteRepoPath);
   final combinedCoverageFile = CombinedCoverageFile(outputDirectory);
 
-  final content = (await coverageFileLocator
-          .findAll(exclude: combinedCoverageFile.path)
-          .map(CoverageFile.new)
-          .map((CoverageFile file) {
-            stdout.writeln('Found coverage file: ${file.path} with ${file.packagePath}');
-            return file.convert();
-          })
-          .asyncExpand((Stream<String> stream) => stream)
-          .toList())
-      .join('\r\n');
+  final content = ((await coverageFileLocator
+              .findAll(exclude: combinedCoverageFile.path)
+              .map(CoverageFile.new)
+              .map((CoverageFile file) {
+                stdout.writeln(
+                    'Found coverage file: ${file.path} with ${file.packagePath}');
+                return file.convert();
+              })
+              .asyncExpand((Stream<String> stream) => stream)
+              .toList())
+          .join('\r\n'))
+      .replaceAll(absoluteRepoPath, '')
+      .replaceAll('SF:.', 'SF:');
+
+  print(absoluteRepoPath);
 
   await combinedCoverageFile.write(content).then((_) {
     stdout.writeln('Coverage info combined successfully!');
