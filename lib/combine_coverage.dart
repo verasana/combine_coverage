@@ -27,8 +27,6 @@ void combineCoverage(String repoPath, String outputDirectory) async {
       .replaceAll(absoluteRepoPath, '')
       .replaceAll('SF:.', 'SF:');
 
-  print(absoluteRepoPath);
-
   await combinedCoverageFile.write(content).then((_) {
     stdout.writeln('Coverage info combined successfully!');
     stdout.writeln('See combined file @ ${combinedCoverageFile.path}');
