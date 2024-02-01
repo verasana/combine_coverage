@@ -21,5 +21,6 @@ class CombinedCoverageFile {
   String get path => p.join(_outputDirectory, _fileName);
 
   /// Writes the provided [content] to the file location
-  Future<void> write(String content) => _file.writeAsString(content, mode: FileMode.write);
+  Future<void> write(String content) =>
+      _file.writeAsString(content, mode: FileMode.write);
 }

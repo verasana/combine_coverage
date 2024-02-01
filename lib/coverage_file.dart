@@ -23,7 +23,9 @@ class CoverageFile {
   /// This normalizes the paths in coverage reports from Dart and Flutter
   /// projects.
   Stream<String> convert() {
-    return LineSplitter().bind(Utf8Decoder().bind(file.openRead())).map((String line) {
+    return LineSplitter()
+        .bind(Utf8Decoder().bind(file.openRead()))
+        .map((String line) {
       // If the line does not require processing
       if (!line.startsWith('SF:')) {
         return line;
