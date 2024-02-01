@@ -1,12 +1,12 @@
 name: combine_coverage
 description: Utility for combining lcov files in a Dart or Flutter monorepo
-version: 1.0.0
+version: 1.0.1
 repository: https://github.com/verasana/combine_coverage
 issue_tracker: https://github.com/verasana/combine_coverage/issues
 
 
 environment:
-  sdk: '>=2.18.4 <3.0.0'
+  sdk: '>=2.18.4 <4.0.0'
 
 executables:
   combine_coverage:
