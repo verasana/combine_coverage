@@ -4,11 +4,12 @@ import 'package:combine_coverage/combined_coverage_file.dart';
 import 'package:combine_coverage/coverage_file.dart';
 import 'package:combine_coverage/coverage_file_locator.dart';
 
+/// Method that gets executed by the CLI `combine_coverage` command.
+/// Requires the [repoPath] and [outputDirectory].
 void combineCoverage(String repoPath, String outputDirectory) async {
   Directory(outputDirectory).createSync(recursive: true);
 
-  var absoluteRepoPath =
-      Directory(repoPath).absolute.path.replaceFirst(RegExp(r'\/$'), '');
+  var absoluteRepoPath = Directory(repoPath).absolute.path.replaceFirst(RegExp(r'\/$'), '');
 
   final coverageFileLocator = CoverageFileLocator(absoluteRepoPath);
   final combinedCoverageFile = CombinedCoverageFile(outputDirectory);
@@ -17,8 +18,7 @@ void combineCoverage(String repoPath, String outputDirectory) async {
               .findAll(exclude: combinedCoverageFile.path)
               .map(CoverageFile.new)
               .map((CoverageFile file) {
-                stdout.writeln(
-                    'Found coverage file: ${file.path} with ${file.packagePath}');
+                stdout.writeln('Found coverage file: ${file.path} with ${file.packagePath}');
                 return file.convert();
               })
               .asyncExpand((Stream<String> stream) => stream)
@@ -33,6 +33,7 @@ void combineCoverage(String repoPath, String outputDirectory) async {
   });
 }
 
+/// Method for printing help instructions to the CLI.
 void printHelp(String usage) {
   print("""
 A CLI tool for combining Dart & Flutter code coverage reports in a monorepo.
