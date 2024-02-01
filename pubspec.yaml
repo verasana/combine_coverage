@@ -12,10 +12,10 @@ executables:
   combine_coverage:
 
 dependencies:
-  args: ^2.3.1
-  file: ^6.1.4
-  glob: ^2.1.1
-  path: ^1.8.2
+  args: ^2.4.2
+  file: ^7.0.0
+  glob: ^2.1.2
+  path: ^1.9.0
 
 dev_dependencies:
-  lints: ^2.0.0
+  lints: ^3.0.0
